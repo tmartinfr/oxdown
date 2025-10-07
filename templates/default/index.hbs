@@ -1,0 +1,9 @@
+<h1>Articles</h1>
+<ul class="article-list">
+{{#each articles}}
+    <li class="article-item">
+        <div class="article-date">{{date}}</div>
+        <h2 class="article-title"><a href="{{url}}">{{title}}</a></h2>
+    </li>
+{{/each}}
+</ul>

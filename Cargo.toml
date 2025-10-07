@@ -1,0 +1,12 @@
+[package]
+name = "oxdown"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+clap = { features = ["derive"], version="*" }
+pulldown-cmark = "*"
+chrono = "*"
+regex = "*"
+handlebars = "*"
+serde_json = "*"
