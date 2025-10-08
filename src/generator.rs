@@ -8,31 +8,34 @@ use std::path::Path;
 pub fn generate_site(
     articles: &[Article],
     output_dir: &Path,
-    template_dir: &str,
+    template_directory: &str,
 ) -> Result<(), io::Error> {
     // Create output directory
     fs::create_dir_all(output_dir)?;
 
     // Initialize Handlebars registry
     let mut handlebars = Handlebars::new();
-    let template_dir = Path::new(template_dir);
+    let template_directory = Path::new(template_directory);
 
     // Copy static assets (CSS and JS)
-    fs::copy(template_dir.join("style.css"), output_dir.join("style.css"))?;
     fs::copy(
-        template_dir.join("dark-mode.js"),
+        template_directory.join("style.css"),
+        output_dir.join("style.css"),
+    )?;
+    fs::copy(
+        template_directory.join("dark-mode.js"),
         output_dir.join("dark-mode.js"),
     )?;
 
     // Register templates
     handlebars
-        .register_template_file("base", template_dir.join("base.hbs"))
+        .register_template_file("base", template_directory.join("base.hbs"))
         .map_err(io::Error::other)?;
     handlebars
-        .register_template_file("index", template_dir.join("index.hbs"))
+        .register_template_file("index", template_directory.join("index.hbs"))
         .map_err(io::Error::other)?;
     handlebars
-        .register_template_file("article", template_dir.join("article.hbs"))
+        .register_template_file("article", template_directory.join("article.hbs"))
         .map_err(io::Error::other)?;
 
     // Generate index page

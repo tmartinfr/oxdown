@@ -35,7 +35,7 @@ Create a `config.json` file:
 {
   "input_directory": "./articles",
   "output_directory": "./dist",
-  "template_dir": "templates/default"
+  "template_directory": "templates/default"
 }
 ```
 
@@ -44,7 +44,7 @@ Create a `config.json` file:
 
 **Optional fields:**
 - `output_directory`: Where to generate the site (default: `"dist"`)
-- `template_dir`: Path to custom templates (default: `"templates/default"`)
+- `template_directory`: Path to custom templates (default: `"templates/default"`)
 
 ## Usage
 

@@ -8,15 +8,15 @@ pub struct Config {
     pub input_directory: PathBuf,
     #[serde(default = "default_output_directory")]
     pub output_directory: PathBuf,
-    #[serde(default = "default_template_dir")]
-    pub template_dir: String,
+    #[serde(default = "default_template_directory")]
+    pub template_directory: String,
 }
 
 fn default_output_directory() -> PathBuf {
     PathBuf::from("dist")
 }
 
-fn default_template_dir() -> String {
+fn default_template_directory() -> String {
     "templates/default".to_string()
 }
 

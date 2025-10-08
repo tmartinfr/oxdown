@@ -85,9 +85,11 @@ fn main() {
     }
 
     // Generate site
-    if let Err(e) =
-        generator::generate_site(&articles, &config.output_directory, &config.template_dir)
-    {
+    if let Err(e) = generator::generate_site(
+        &articles,
+        &config.output_directory,
+        &config.template_directory,
+    ) {
         eprintln!("Error generating site: {e}");
         process::exit(1);
     }
