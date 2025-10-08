@@ -119,6 +119,12 @@ pre code {
     font-size: 0.95rem;
 }
 
+hr {
+    border: none;
+    border-top: 1px solid var(--border-color);
+    margin: 2rem 0;
+}
+
 .article-list {
     list-style: none;
     margin-top: 2rem;
