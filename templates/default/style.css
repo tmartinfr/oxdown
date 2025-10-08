@@ -1,3 +1,33 @@
+:root {
+    --bg-primary: #fafafa;
+    --bg-secondary: #f1f3f5;
+    --bg-code: #2c3e50;
+    --text-primary: #2c3e50;
+    --text-heading: #1a1a1a;
+    --text-muted: #7f8c8d;
+    --text-code: #e74c3c;
+    --text-code-block: #ecf0f1;
+    --link-color: #3498db;
+    --link-hover: #2980b9;
+    --border-color: #e0e0e0;
+    --shadow: rgba(0, 0, 0, 0.1);
+}
+
+body.dark-mode {
+    --bg-primary: #1a1a1a;
+    --bg-secondary: #2d2d2d;
+    --bg-code: #0d1117;
+    --text-primary: #e6e6e6;
+    --text-heading: #ffffff;
+    --text-muted: #a0a0a0;
+    --text-code: #ff6b6b;
+    --text-code-block: #e6e6e6;
+    --link-color: #58a6ff;
+    --link-hover: #79c0ff;
+    --border-color: #3d3d3d;
+    --shadow: rgba(0, 0, 0, 0.3);
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -9,17 +39,20 @@ body {
         -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial,
         sans-serif;
     line-height: 1.7;
-    color: #2c3e50;
+    color: var(--text-primary);
     max-width: 800px;
     margin: 0 auto;
     padding: 3rem 2rem;
-    background: #fafafa;
+    background: var(--bg-primary);
+    transition:
+        background 0.3s ease,
+        color 0.3s ease;
 }
 
 h1 {
     font-size: 2.5rem;
     margin-bottom: 2rem;
-    color: #1a1a1a;
+    color: var(--text-heading);
     font-weight: 700;
     letter-spacing: -0.02em;
 }
@@ -28,7 +61,7 @@ h2 {
     font-size: 1.75rem;
     margin-top: 3rem;
     margin-bottom: 1rem;
-    color: #1a1a1a;
+    color: var(--text-heading);
     font-weight: 600;
     letter-spacing: -0.01em;
 }
@@ -37,7 +70,7 @@ h3 {
     font-size: 1.35rem;
     margin-top: 2rem;
     margin-bottom: 0.75rem;
-    color: #2c3e50;
+    color: var(--text-primary);
     font-weight: 600;
 }
 
@@ -47,7 +80,7 @@ p {
 }
 
 a {
-    color: #3498db;
+    color: var(--link-color);
     text-decoration: none;
     border-bottom: 1px solid transparent;
     transition:
@@ -56,33 +89,33 @@ a {
 }
 
 a:hover {
-    color: #2980b9;
-    border-bottom-color: #2980b9;
+    color: var(--link-hover);
+    border-bottom-color: var(--link-hover);
 }
 
 code {
-    background: #f1f3f5;
+    background: var(--bg-secondary);
     padding: 0.25rem 0.5rem;
     border-radius: 4px;
     font-family: "SF Mono", "Monaco", "Inconsolata", "Fira Code", monospace;
     font-size: 0.9em;
-    color: #e74c3c;
+    color: var(--text-code);
 }
 
 pre {
-    background: #2c3e50;
-    color: #ecf0f1;
+    background: var(--bg-code);
+    color: var(--text-code-block);
     padding: 1.5rem;
     border-radius: 8px;
     overflow-x: auto;
     margin-bottom: 1.5rem;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 8px var(--shadow);
 }
 
 pre code {
     background: none;
     padding: 0;
-    color: #ecf0f1;
+    color: var(--text-code-block);
     font-size: 0.95rem;
 }
 
@@ -94,7 +127,7 @@ pre code {
 .article-item {
     margin-bottom: 2.5rem;
     padding-bottom: 2rem;
-    border-bottom: 1px solid #e0e0e0;
+    border-bottom: 1px solid var(--border-color);
 }
 
 .article-item:last-child {
@@ -102,7 +135,7 @@ pre code {
 }
 
 .article-date {
-    color: #7f8c8d;
+    color: var(--text-muted);
     font-size: 0.9rem;
     font-weight: 500;
     text-transform: uppercase;
@@ -116,22 +149,56 @@ pre code {
 }
 
 .article-title a {
-    color: #1a1a1a;
+    color: var(--text-heading);
     border-bottom: none;
 }
 
 .article-title a:hover {
-    color: #3498db;
+    color: var(--link-color);
 }
 
 .back-link {
     display: inline-block;
     margin-bottom: 2rem;
-    color: #7f8c8d;
+    color: var(--text-muted);
     font-size: 0.95rem;
     transition: color 0.2s ease;
 }
 
 .back-link:hover {
-    color: #3498db;
+    color: var(--link-color);
+}
+
+.comment-link {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border-color);
+    text-align: center;
+}
+
+.comment-link a {
+    font-size: 1.05rem;
+    font-weight: 500;
+}
+
+.dark-mode-toggle {
+    position: fixed;
+    top: 2rem;
+    right: 2rem;
+    font-size: 1.5rem;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0.5rem;
+    line-height: 1;
+    opacity: 0.7;
+    transition:
+        opacity 0.2s ease,
+        transform 0.2s ease;
+    user-select: none;
+}
+
+.dark-mode-toggle:hover {
+    opacity: 1;
+    transform: scale(1.1);
 }

@@ -13,8 +13,12 @@ pub fn generate_site(articles: &[Article], output_dir: &Path) -> Result<(), io::
     let mut handlebars = Handlebars::new();
     let template_dir = Path::new(&CONFIG.template_dir);
 
-    // Load CSS
-    let css = fs::read_to_string(template_dir.join("style.css"))?;
+    // Copy static assets (CSS and JS)
+    fs::copy(template_dir.join("style.css"), output_dir.join("style.css"))?;
+    fs::copy(
+        template_dir.join("dark-mode.js"),
+        output_dir.join("dark-mode.js"),
+    )?;
 
     // Register templates
     handlebars
@@ -28,11 +32,11 @@ pub fn generate_site(articles: &[Article], output_dir: &Path) -> Result<(), io::
         .map_err(io::Error::other)?;
 
     // Generate index page
-    generate_index(articles, output_dir, &handlebars, &css)?;
+    generate_index(articles, output_dir, &handlebars)?;
 
     // Generate individual article pages
     for article in articles {
-        generate_article(article, output_dir, &handlebars, &css)?;
+        generate_article(article, output_dir, &handlebars)?;
     }
 
     Ok(())
@@ -42,7 +46,6 @@ fn generate_index(
     articles: &[Article],
     output_dir: &Path,
     handlebars: &Handlebars,
-    css: &str,
 ) -> Result<(), io::Error> {
     // Prepare article data for template
     let article_data: Vec<_> = articles
@@ -72,7 +75,6 @@ fn generate_index(
             "base",
             &json!({
                 "title": "Blog",
-                "css": css,
                 "content": index_content,
             }),
         )
@@ -86,7 +88,6 @@ fn generate_article(
     article: &Article,
     output_dir: &Path,
     handlebars: &Handlebars,
-    css: &str,
 ) -> Result<(), io::Error> {
     let article_dir = output_dir.join(article.url_path());
     fs::create_dir_all(&article_dir)?;
@@ -116,7 +117,6 @@ fn generate_article(
             "base",
             &json!({
                 "title": &article.title,
-                "css": css,
                 "content": article_content,
             }),
         )
