@@ -105,6 +105,7 @@ fn generate_article(
             "article",
             &json!({
                 "content": &article.content_html,
+                "comment_url": &article.comment_url,
             }),
         )
         .map_err(io::Error::other)?;

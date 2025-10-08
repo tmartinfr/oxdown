@@ -16,6 +16,7 @@ pub struct Article {
     pub title: String,
     pub content_html: String,
     pub static_files: Vec<PathBuf>,
+    pub comment_url: Option<String>,
 }
 
 impl Article {
@@ -25,6 +26,7 @@ impl Article {
         title: String,
         content_html: String,
         static_files: Vec<PathBuf>,
+        comment_url: Option<String>,
     ) -> Self {
         Self {
             date,
@@ -32,6 +34,7 @@ impl Article {
             title,
             content_html,
             static_files,
+            comment_url,
         }
     }
 
