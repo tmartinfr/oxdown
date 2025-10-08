@@ -9,6 +9,8 @@ pub fn generate_site(
     articles: &[Article],
     output_dir: &Path,
     template_directory: &str,
+    author_name: Option<&str>,
+    author_url: Option<&str>,
 ) -> Result<(), io::Error> {
     // Create output directory
     fs::create_dir_all(output_dir)?;
@@ -43,7 +45,7 @@ pub fn generate_site(
 
     // Generate individual article pages
     for article in articles {
-        generate_article(article, output_dir, &handlebars)?;
+        generate_article(article, output_dir, &handlebars, author_name, author_url)?;
     }
 
     Ok(())
@@ -95,6 +97,8 @@ fn generate_article(
     article: &Article,
     output_dir: &Path,
     handlebars: &Handlebars,
+    author_name: Option<&str>,
+    author_url: Option<&str>,
 ) -> Result<(), io::Error> {
     let article_dir = output_dir.join(article.url_path());
     fs::create_dir_all(&article_dir)?;
@@ -114,6 +118,8 @@ fn generate_article(
             &json!({
                 "content": &article.content_html,
                 "comment_url": &article.comment_url,
+                "author_name": author_name,
+                "author_url": author_url,
             }),
         )
         .map_err(io::Error::other)?;

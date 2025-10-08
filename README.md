@@ -35,7 +35,9 @@ Create a `config.json` file:
 {
   "input_directory": "./articles",
   "output_directory": "./dist",
-  "template_directory": "templates/default"
+  "template_directory": "templates/default",
+  "author_name": "John Doe",
+  "author_url": "https://example.com/author"
 }
 ```
 
@@ -45,6 +47,8 @@ Create a `config.json` file:
 **Optional fields:**
 - `output_directory`: Where to generate the site (default: `"dist"`)
 - `template_directory`: Path to custom templates (default: `"templates/default"`)
+- `author_name`: Author name to display at the bottom of articles (optional)
+- `author_url`: URL to link the author name to (optional, requires `author_name`)
 
 ## Usage
 

@@ -10,6 +10,10 @@ pub struct Config {
     pub output_directory: PathBuf,
     #[serde(default = "default_template_directory")]
     pub template_directory: String,
+    #[serde(default)]
+    pub author_name: Option<String>,
+    #[serde(default)]
+    pub author_url: Option<String>,
 }
 
 fn default_output_directory() -> PathBuf {

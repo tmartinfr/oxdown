@@ -4,6 +4,15 @@
 </article>
 {{#if comment_url}}
 <div class="comment-link">
+{{#if author_name}}
+<p class="author-name">By {{#if author_url}}<a href="{{author_url}}" class="author-link" target="_blank" rel="noopener noreferrer">{{author_name}}</a>{{else}}{{author_name}}{{/if}}</p>
+{{/if}}
 <a href="{{comment_url}}" target="_blank" rel="noopener noreferrer">Follow me or comment</a>
 </div>
+{{else}}
+{{#if author_name}}
+<div class="comment-link">
+<p class="author-name">By {{#if author_url}}<a href="{{author_url}}" class="author-link" target="_blank" rel="noopener noreferrer">{{author_name}}</a>{{else}}{{author_name}}{{/if}}</p>
+</div>
+{{/if}}
 {{/if}}

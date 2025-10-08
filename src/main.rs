@@ -89,6 +89,8 @@ fn main() {
         &articles,
         &config.output_directory,
         &config.template_directory,
+        config.author_name.as_deref(),
+        config.author_url.as_deref(),
     ) {
         eprintln!("Error generating site: {e}");
         process::exit(1);
