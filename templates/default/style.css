@@ -1,19 +1,4 @@
 :root {
-    --bg-primary: #fafafa;
-    --bg-secondary: #f1f3f5;
-    --bg-code: #2c3e50;
-    --text-primary: #2c3e50;
-    --text-heading: #1a1a1a;
-    --text-muted: #7f8c8d;
-    --text-code: #e74c3c;
-    --text-code-block: #ecf0f1;
-    --link-color: #3498db;
-    --link-hover: #2980b9;
-    --border-color: #e0e0e0;
-    --shadow: rgba(0, 0, 0, 0.1);
-}
-
-body.dark-mode {
     --bg-primary: #1a1a1a;
     --bg-secondary: #2d2d2d;
     --bg-code: #0d1117;
@@ -26,6 +11,21 @@ body.dark-mode {
     --link-hover: #79c0ff;
     --border-color: #3d3d3d;
     --shadow: rgba(0, 0, 0, 0.3);
+}
+
+body.light-mode {
+    --bg-primary: #fafafa;
+    --bg-secondary: #f1f3f5;
+    --bg-code: #2c3e50;
+    --text-primary: #2c3e50;
+    --text-heading: #1a1a1a;
+    --text-muted: #7f8c8d;
+    --text-code: #e74c3c;
+    --text-code-block: #ecf0f1;
+    --link-color: #3498db;
+    --link-hover: #2980b9;
+    --border-color: #e0e0e0;
+    --shadow: rgba(0, 0, 0, 0.1);
 }
 
 * {
@@ -207,7 +207,7 @@ hr {
     border-bottom-color: var(--link-hover);
 }
 
-.dark-mode-toggle {
+.light-mode-toggle {
     position: fixed;
     top: 2rem;
     right: 2rem;

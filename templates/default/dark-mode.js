@@ -1,25 +1,25 @@
-const darkModeToggle = document.getElementById('darkModeToggle');
+const lightModeToggle = document.getElementById("lightModeToggle");
 const body = document.body;
 
 // Load saved preference or default to dark
-const savedTheme = localStorage.getItem('theme');
-if (savedTheme === 'light') {
-    body.classList.remove('dark-mode');
-    darkModeToggle.textContent = '🌙';
+const savedTheme = localStorage.getItem("theme");
+if (savedTheme === "light") {
+  body.classList.add("light-mode");
+  lightModeToggle.textContent = "🌙";
 } else {
-    body.classList.add('dark-mode');
-    darkModeToggle.textContent = '☀️';
+  body.classList.remove("light-mode");
+  lightModeToggle.textContent = "☀️";
 }
 
-// Toggle dark mode
-darkModeToggle.addEventListener('click', () => {
-    body.classList.toggle('dark-mode');
+// Toggle light mode
+lightModeToggle.addEventListener("click", () => {
+  body.classList.toggle("light-mode");
 
-    if (body.classList.contains('dark-mode')) {
-        darkModeToggle.textContent = '☀️';
-        localStorage.setItem('theme', 'dark');
-    } else {
-        darkModeToggle.textContent = '🌙';
-        localStorage.setItem('theme', 'light');
-    }
+  if (body.classList.contains("light-mode")) {
+    lightModeToggle.textContent = "🌙";
+    localStorage.setItem("theme", "light");
+  } else {
+    lightModeToggle.textContent = "☀️";
+    localStorage.setItem("theme", "dark");
+  }
 });
