@@ -35,9 +35,7 @@ body.light-mode {
 }
 
 body {
-    font-family:
-        -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial,
-        sans-serif;
+    font-family: Verdana, sans-serif;
     line-height: 1.7;
     color: var(--text-primary);
     max-width: 800px;
@@ -76,7 +74,24 @@ h3 {
 
 p {
     margin-bottom: 1.25rem;
-    font-size: 1.05rem;
+    font-size: 1.125rem;
+}
+
+ul,
+ol {
+    margin-bottom: 1.25rem;
+    padding-left: 0;
+    list-style-position: inside;
+    font-size: 1.125rem;
+}
+
+li {
+    margin-bottom: 0.5rem;
+    line-height: 1.7;
+}
+
+li:last-child {
+    margin-bottom: 0;
 }
 
 a {
