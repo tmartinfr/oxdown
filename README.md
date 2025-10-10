@@ -7,6 +7,9 @@ An opinionated static site generator for markdown articles.
 - Convention-based article directories (`YYYY-MM-DD-slug/`)
 - Markdown to HTML conversion
 - Automatic static file copying (images, etc.)
+- Dark mode toggle with localStorage persistence
+- Optional comment/discussion links per article
+- Configuration via JSON file
 - Minimal default design
 - Fast Rust implementation
 
@@ -22,6 +25,27 @@ Or directly with cargo:
 cargo install --path .
 ```
 
+## Configuration
+
+Oxdown requires a configuration file in JSON format. You can specify it either as a command-line argument or via the `OXDOWN_CONFIG` environment variable.
+
+Create a `config.json` file:
+
+```json
+{
+  "input_directory": "./articles",
+  "output_directory": "./dist",
+  "template_dir": "templates/default"
+}
+```
+
+**Required fields:**
+- `input_directory`: Path to the directory containing article directories
+
+**Optional fields:**
+- `output_directory`: Where to generate the site (default: `"dist"`)
+- `template_dir`: Path to custom templates (default: `"templates/default"`)
+
 ## Usage
 
 Create article directories following the naming convention:
@@ -30,9 +54,11 @@ Create article directories following the naming convention:
 articles/
 ├── 2024-01-15-hello-world/
 │   ├── index.md
+│   ├── index.json       (optional)
 │   └── diagram.png
 └── 2024-01-20-another-post/
-    └── index.md
+    ├── index.md
+    └── index.json       (optional)
 ```
 
 Each `index.md` must start with a level 1 heading:
@@ -43,25 +69,36 @@ Each `index.md` must start with a level 1 heading:
 Your content here...
 ```
 
-Generate the site:
+### Optional Article Metadata
+
+You can add an optional `index.json` file alongside your `index.md` to specify additional metadata:
+
+```json
+{
+  "comment_url": "https://twitter.com/yourhandle/status/123456789"
+}
+```
+
+When `comment_url` is specified, a "Follow me or comment" link will be displayed at the end of the article.
+
+### Generate the site
+
+With a config file argument:
 
 ```bash
-oxdown ./articles/ --output dist
+oxdown config.json
+```
+
+Or using the environment variable:
+
+```bash
+export OXDOWN_CONFIG=config.json
+oxdown
 ```
 
 ## Development
 
-```bash
-# Run linter
-just lint
-
-# Build the project
-just build
-
-# Generate and serve a test site
-just run ./articles/
-just serve
-```
+See available development commands in the `justfile`.
 
 ## License
 

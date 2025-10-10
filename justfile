@@ -14,9 +14,9 @@ build:
 build-release:
     cargo build --release
 
-# Run the project (requires input directory argument)
-run INPUT OUTPUT="dist":
-    cargo run -- {{INPUT}} --output {{OUTPUT}}
+# Run the project
+run OXDOWN_CONFIG="":
+    cargo run -- {{OXDOWN_CONFIG}}
 
 # Lint, then build
 check: lint build

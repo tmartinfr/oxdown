@@ -1,17 +1,21 @@
-use crate::config::CONFIG;
 use crate::models::Article;
 use handlebars::Handlebars;
 use serde_json::json;
 use std::fs;
 use std::io;
 use std::path::Path;
-pub fn generate_site(articles: &[Article], output_dir: &Path) -> Result<(), io::Error> {
+
+pub fn generate_site(
+    articles: &[Article],
+    output_dir: &Path,
+    template_dir: &str,
+) -> Result<(), io::Error> {
     // Create output directory
     fs::create_dir_all(output_dir)?;
 
     // Initialize Handlebars registry
     let mut handlebars = Handlebars::new();
-    let template_dir = Path::new(&CONFIG.template_dir);
+    let template_dir = Path::new(template_dir);
 
     // Copy static assets (CSS and JS)
     fs::copy(template_dir.join("style.css"), output_dir.join("style.css"))?;
