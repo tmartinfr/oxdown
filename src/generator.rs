@@ -50,7 +50,7 @@ pub fn generate_site(
         .map_err(io::Error::other)?;
 
     // Generate index page
-    generate_index(articles, output_dir, &handlebars)?;
+    generate_index(articles, output_dir, &handlebars, author_name)?;
 
     // Generate individual article pages
     for article in articles {
@@ -64,6 +64,7 @@ fn generate_index(
     articles: &[Article],
     output_dir: &Path,
     handlebars: &Handlebars,
+    author_name: Option<&str>,
 ) -> Result<(), io::Error> {
     // Prepare article data for template
     let article_data: Vec<_> = articles
@@ -92,7 +93,7 @@ fn generate_index(
         .render(
             "base",
             &json!({
-                "title": "Blog",
+                "title": author_name.unwrap_or("Articles"),
                 "content": index_content,
             }),
         )
