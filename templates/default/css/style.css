@@ -16,12 +16,12 @@
 body.light-mode {
     --bg-primary: #fafafa;
     --bg-secondary: #f1f3f5;
-    --bg-code: #2c3e50;
+    --bg-code: #f6f8fa;
     --text-primary: #2c3e50;
     --text-heading: #1a1a1a;
     --text-muted: #7f8c8d;
     --text-code: #e74c3c;
-    --text-code-block: #ecf0f1;
+    --text-code-block: #24292e;
     --link-color: #3498db;
     --link-hover: #2980b9;
     --border-color: #e0e0e0;
@@ -119,7 +119,6 @@ code {
 
 pre {
     background: var(--bg-code);
-    color: var(--text-code-block);
     padding: 1.5rem;
     border-radius: 8px;
     overflow-x: auto;
@@ -130,8 +129,15 @@ pre {
 pre code {
     background: none;
     padding: 0;
-    color: var(--text-code-block);
+    color: inherit;
     font-size: 0.95rem;
+    font-family: "SF Mono", "Monaco", "Inconsolata", "Fira Code", monospace;
+}
+
+/* Ensure Highlight.js styles work with your theme */
+pre code.hljs {
+    background: transparent;
+    padding: 0;
 }
 
 hr {

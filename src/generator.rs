@@ -5,6 +5,21 @@ use std::fs;
 use std::io;
 use std::path::Path;
 
+/// Recursively copy a directory and its contents
+fn copy_dir_all(src: impl AsRef<Path>, dst: impl AsRef<Path>) -> io::Result<()> {
+    fs::create_dir_all(&dst)?;
+    for entry in fs::read_dir(src)? {
+        let entry = entry?;
+        let ty = entry.file_type()?;
+        if ty.is_dir() {
+            copy_dir_all(entry.path(), dst.as_ref().join(entry.file_name()))?;
+        } else {
+            fs::copy(entry.path(), dst.as_ref().join(entry.file_name()))?;
+        }
+    }
+    Ok(())
+}
+
 pub fn generate_site(
     articles: &[Article],
     output_dir: &Path,
@@ -19,15 +34,9 @@ pub fn generate_site(
     let mut handlebars = Handlebars::new();
     let template_directory = Path::new(template_directory);
 
-    // Copy static assets (CSS and JS)
-    fs::copy(
-        template_directory.join("style.css"),
-        output_dir.join("style.css"),
-    )?;
-    fs::copy(
-        template_directory.join("dark-mode.js"),
-        output_dir.join("dark-mode.js"),
-    )?;
+    // Copy static asset directories (CSS and JS)
+    copy_dir_all(template_directory.join("css"), output_dir.join("css"))?;
+    copy_dir_all(template_directory.join("js"), output_dir.join("js"))?;
 
     // Register templates
     handlebars
