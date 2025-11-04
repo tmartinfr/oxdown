@@ -8,7 +8,6 @@ pub struct Config {
     pub input_directory: PathBuf,
     #[serde(default = "default_output_directory")]
     pub output_directory: PathBuf,
-    #[serde(default = "default_template_directory")]
     pub template_directory: String,
     #[serde(default)]
     pub author_name: Option<String>,
@@ -18,10 +17,6 @@ pub struct Config {
 
 fn default_output_directory() -> PathBuf {
     PathBuf::from("dist")
-}
-
-fn default_template_directory() -> String {
-    "templates/default".to_string()
 }
 
 impl Config {

@@ -43,12 +43,29 @@ Create a `config.json` file:
 
 **Required fields:**
 - `input_directory`: Path to the directory containing article directories
+- `template_directory`: Path to the template directory containing required template files and assets
 
 **Optional fields:**
 - `output_directory`: Where to generate the site (default: `"dist"`)
-- `template_directory`: Path to custom templates (default: `"templates/default"`)
 - `author_name`: Author name to display at the bottom of articles (optional)
 - `author_url`: URL to link the author name to (optional, requires `author_name`)
+
+### Template Directory Structure
+
+The template directory must contain the following structure:
+
+```
+templates/default/
+├── base.hbs       (required: base HTML layout)
+├── index.hbs      (required: article list page template)
+├── article.hbs    (required: individual article template)
+├── css/           (required: directory for stylesheets)
+└── js/            (required: directory for JavaScript files)
+```
+
+Oxdown includes a `templates/default` directory with a ready-to-use template that you can reference in your config or copy and customize.
+
+Oxdown will validate that all required files and subdirectories exist before generating the site.
 
 ## Usage
 

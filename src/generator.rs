@@ -27,12 +27,81 @@ pub fn generate_site(
     author_name: Option<&str>,
     author_url: Option<&str>,
 ) -> Result<(), io::Error> {
+    // Validate template directory exists
+    let template_directory = Path::new(template_directory);
+    if !template_directory.exists() {
+        return Err(io::Error::new(
+            io::ErrorKind::NotFound,
+            format!(
+                "Template directory does not exist: '{}'\nPlease check the 'template_directory' setting in your config file.",
+                template_directory.display()
+            ),
+        ));
+    }
+    if !template_directory.is_dir() {
+        return Err(io::Error::new(
+            io::ErrorKind::InvalidInput,
+            format!(
+                "Template directory path is not a directory: '{}'\nPlease check the 'template_directory' setting in your config file.",
+                template_directory.display()
+            ),
+        ));
+    }
+
+    // Validate required template files exist
+    let required_files = ["base.hbs", "index.hbs", "article.hbs"];
+    let mut missing_files = Vec::new();
+    for file in &required_files {
+        let file_path = template_directory.join(file);
+        if !file_path.exists() {
+            missing_files.push(*file);
+        }
+    }
+    if !missing_files.is_empty() {
+        return Err(io::Error::new(
+            io::ErrorKind::NotFound,
+            format!(
+                "Template directory '{}' is missing required template files: {}\nPlease ensure your template directory contains all required files.",
+                template_directory.display(),
+                missing_files.join(", ")
+            ),
+        ));
+    }
+
+    // Validate required subdirectories exist
+    let required_dirs = ["css", "js"];
+    let mut missing_dirs = Vec::new();
+    for dir in &required_dirs {
+        let dir_path = template_directory.join(dir);
+        if !dir_path.exists() {
+            missing_dirs.push(*dir);
+        } else if !dir_path.is_dir() {
+            return Err(io::Error::new(
+                io::ErrorKind::InvalidInput,
+                format!(
+                    "Template directory '{}' contains a file named '{}' where a directory is expected.\nPlease ensure your template directory structure is correct.",
+                    template_directory.display(),
+                    dir
+                ),
+            ));
+        }
+    }
+    if !missing_dirs.is_empty() {
+        return Err(io::Error::new(
+            io::ErrorKind::NotFound,
+            format!(
+                "Template directory '{}' is missing required subdirectories: {}\nPlease ensure your template directory contains all required subdirectories.",
+                template_directory.display(),
+                missing_dirs.join(", ")
+            ),
+        ));
+    }
+
     // Create output directory
     fs::create_dir_all(output_dir)?;
 
     // Initialize Handlebars registry
     let mut handlebars = Handlebars::new();
-    let template_directory = Path::new(template_directory);
 
     // Copy static asset directories (CSS and JS)
     copy_dir_all(template_directory.join("css"), output_dir.join("css"))?;
