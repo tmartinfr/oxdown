@@ -36,7 +36,7 @@ body.light-mode {
 
 body {
     font-family: Verdana, sans-serif;
-    line-height: 1.7;
+    line-height: 1.5;
     color: var(--text-primary);
     max-width: 800px;
     margin: 0 auto;
@@ -87,7 +87,7 @@ ol {
 
 li {
     margin-bottom: 0.5rem;
-    line-height: 1.7;
+    line-height: 1.5;
 }
 
 li:last-child {
