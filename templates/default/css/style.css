@@ -116,7 +116,7 @@ code {
     padding: 0.25rem 0.5rem;
     border-radius: 4px;
     font-family: "SF Mono", "Monaco", "Inconsolata", "Fira Code", monospace;
-    font-size: 0.9em;
+    font-size: 0.8em;
     color: var(--text-code);
 }
 
@@ -127,14 +127,6 @@ pre {
     overflow-x: auto;
     margin-bottom: 1.5rem;
     box-shadow: 0 2px 8px var(--shadow);
-}
-
-pre code {
-    background: none;
-    padding: 0;
-    color: inherit;
-    font-size: 0.95rem;
-    font-family: "SF Mono", "Monaco", "Inconsolata", "Fira Code", monospace;
 }
 
 /* Ensure Highlight.js styles work with your theme */
