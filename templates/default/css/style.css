@@ -135,6 +135,11 @@ pre code.hljs {
     padding: 0;
 }
 
+img {
+    max-width: 100%;
+    height: auto;
+}
+
 hr {
     border: none;
     border-top: 1px solid var(--border-color);
