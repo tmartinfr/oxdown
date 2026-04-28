@@ -69,8 +69,8 @@ fn main() {
 
     // Parse articles
     let mut articles = Vec::new();
-    for article_dir in article_dirs {
-        match parser::parse_article(&article_dir) {
+    for article_dir in article_dirs.iter().rev() {
+        match parser::parse_article(article_dir) {
             Ok(article) => {
                 println!("  - {}: {}", article.date, article.title);
                 articles.push(article);
@@ -83,6 +83,8 @@ fn main() {
             }
         }
     }
+    // Restore newest-first order for site generation
+    articles.reverse();
 
     // Generate site
     if let Err(e) = generator::generate_site(

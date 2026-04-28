@@ -42,8 +42,8 @@ pub fn find_article_directories(root_path: &Path) -> Result<Vec<ArticleDirectory
         }
     }
 
-    // Sort by date, oldest first
-    articles.sort_by(|a, b| a.date.cmp(&b.date));
+    // Sort by date, newest first
+    articles.sort_by(|a, b| b.date.cmp(&a.date));
 
     Ok(articles)
 }
