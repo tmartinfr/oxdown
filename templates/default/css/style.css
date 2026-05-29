@@ -1,3 +1,11 @@
+@font-face {
+    font-family: "Nunito";
+    font-style: normal;
+    font-weight: 400 700;
+    font-display: swap;
+    src: url("/css/fonts/nunito-latin.woff2") format("woff2");
+}
+
 :root {
     --bg-primary: #1a1a1a;
     --bg-secondary: #2d2d2d;
@@ -35,7 +43,8 @@ body.light-mode {
 }
 
 body {
-    font-family: Verdana, sans-serif;
+    font-family: Nunito, sans-serif;
+    font-size: 18px;
     line-height: 1.5;
     color: var(--text-primary);
     max-width: 800px;
@@ -74,13 +83,13 @@ h3 {
 
 p {
     margin-bottom: 1.25rem;
-    font-size: 1.125rem;
+    font-size: 1em;
 }
 
 ul,
 ol {
     margin-bottom: 1.25rem;
-    font-size: 1.125rem;
+    font-size: 1em;
 }
 
 article > ul, ol {
