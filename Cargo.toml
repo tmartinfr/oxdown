@@ -11,3 +11,4 @@ regex = "*"
 handlebars = "*"
 serde_json = "*"
 serde = { version = "*", features = ["derive"] }
+notify = "*"

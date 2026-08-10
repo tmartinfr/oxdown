@@ -18,6 +18,10 @@ build-release:
 run OXDOWN_CONFIG="":
     cargo run -- {{OXDOWN_CONFIG}}
 
+# Run the project, rebuilding the site when files change
+watch OXDOWN_CONFIG="":
+    cargo run -- --watch {{OXDOWN_CONFIG}}
+
 # Lint, then build
 check: lint build
 

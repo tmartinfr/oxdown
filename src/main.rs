@@ -1,8 +1,10 @@
+mod builder;
 mod config;
 mod finder;
 mod generator;
 mod models;
 mod parser;
+mod watcher;
 
 use clap::Parser;
 use std::env;
@@ -16,6 +18,10 @@ struct Cli {
     /// Path to config file (or set OXDOWN_CONFIG environment variable)
     #[arg(value_name = "CONFIG")]
     config: Option<PathBuf>,
+
+    /// Keep running and rebuild the site when files change
+    #[arg(short, long)]
+    watch: bool,
 }
 
 fn main() {
@@ -56,50 +62,19 @@ fn main() {
     println!("Input directory: {}", config.input_directory.display());
     println!("Output directory: {}", config.output_directory.display());
 
-    // Find article directories
-    let article_dirs = match finder::find_article_directories(&config.input_directory) {
-        Ok(dirs) => dirs,
-        Err(e) => {
-            eprintln!("Error reading input directory: {e}");
+    // Build the site once, then keep going in watch mode even if it failed
+    if let Err(e) = builder::build_site(&config) {
+        eprintln!("Error {e}");
+        if !cli.watch {
             process::exit(1);
         }
-    };
+    }
 
-    println!("Found {} article(s)", article_dirs.len());
-
-    // Parse articles
-    let mut articles = Vec::new();
-    for article_dir in article_dirs.iter().rev() {
-        match parser::parse_article(article_dir) {
-            Ok(article) => {
-                println!("  - {}: {}", article.date, article.title);
-                articles.push(article);
-            }
-            Err(e) => {
-                eprintln!(
-                    "Warning: Failed to parse article in {:?}: {}",
-                    article_dir.path, e
-                );
-            }
+    if cli.watch {
+        println!();
+        if let Err(e) = watcher::watch(&config_path, config) {
+            eprintln!("Error watching for changes: {e}");
+            process::exit(1);
         }
     }
-    // Restore newest-first order for site generation
-    articles.reverse();
-
-    // Generate site
-    if let Err(e) = generator::generate_site(
-        &articles,
-        &config.output_directory,
-        &config.template_directory,
-        config.author_name.as_deref(),
-        config.author_url.as_deref(),
-    ) {
-        eprintln!("Error generating site: {e}");
-        process::exit(1);
-    }
-
-    println!(
-        "\nSite generated successfully in {:?}",
-        config.output_directory
-    );
 }

@@ -117,6 +117,18 @@ export OXDOWN_CONFIG=config.json
 oxdown
 ```
 
+### Watch mode
+
+With `--watch`, oxdown keeps running and rebuilds the whole site whenever an article,
+a template file, or the config file itself changes (the config is reloaded, so no
+restart is needed). Build errors are reported without stopping the watcher.
+
+```bash
+oxdown config.json --watch
+```
+
+Run it alongside `just serve` in another terminal to preview the site while writing.
+
 ## Development
 
 See available development commands in the `justfile`.
